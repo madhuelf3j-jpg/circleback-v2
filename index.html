@@ -2,203 +2,41 @@
 <html>
 <head>
 <title>CircleBack V2</title>
-
 <style>
 body{
 font-family:Arial,sans-serif;
 background:white;
 color:black;
 text-align:center;
-padding:40px;
-}
-
-.container{
-max-width:900px;
-margin:auto;
+padding:50px;
 }
 
 h1{
 font-size:60px;
-margin-bottom:10px;
-}
-
-h2{
-margin-top:0;
 }
 
 button{
-padding:12px 30px;
+padding:15px 30px;
 font-size:18px;
+background:black;
+color:white;
+border:none;
 cursor:pointer;
-border:2px solid black;
-background:white;
-}
-
-select,input,textarea{
-width:80%;
-padding:12px;
-margin:10px;
-border:2px solid black;
-}
-
-.card{
-border:2px solid black;
-padding:20px;
-margin-top:20px;
-}
-
-.stats{
-font-size:22px;
-font-weight:bold;
 }
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-
 <h1>CIRCLEBACK</h1>
+
 <h2>Reflect • Improve • Succeed</h2>
 
-<div class="card">
+<p>Version 2 Test Build</p>
 
-<h3>Select Subject</h3>
-
-<select id="subject">
-<option>AS Biology</option>
-<option>AS Chemistry</option>
-<option>AS Physics</option>
-<option>AS Business</option>
-<option>Computer Science</option>
-<option>Mathematics</option>
-</select>
-
-<br>
-
-<input id="name" placeholder="Your Name">
-
-<br>
-
-<textarea id="feedback"
-placeholder="Write your answer or feedback here..."
-rows="8"></textarea>
-
-<br>
-
-<button onclick="submitData()">
-Submit
+<button onclick="alert('CircleBack is working!')">
+Start
 </button>
-
-</div>
-
-<div class="card">
-
-<h3>Statistics Dashboard</h3>
-
-<p class="stats">
-Total Users:
-<span id="users">0</span>
-</p>
-
-<p class="stats">
-Feedback Entries:
-<span id="entries">0</span>
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Recent Feedback</h3>
-
-<div id="results">
-No feedback yet.
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-let users =
-Number(localStorage.getItem("users")) || 0;
-
-let entries =
-JSON.parse(localStorage.getItem("entries")) || [];
-
-document.getElementById("users").innerText = users;
-document.getElementById("entries").innerText = entries.length;
-
-render();
-
-function submitData(){
-
-const name =
-document.getElementById("name").value;
-
-const subject =
-document.getElementById("subject").value;
-
-const feedback =
-document.getElementById("feedback").value;
-
-if(name===""){
-alert("Enter name");
-return;
-}
-
-users++;
-
-localStorage.setItem("users",users);
-
-entries.unshift({
-name:name,
-subject:subject,
-feedback:feedback
-});
-
-localStorage.setItem(
-"entries",
-JSON.stringify(entries)
-);
-
-document.getElementById("users").innerText = users;
-document.getElementById("entries").innerText = entries.length;
-
-render();
-
-alert("Feedback submitted successfully!");
-
-}
-
-function render(){
-
-let html="";
-
-entries.slice(0,20).forEach(e=>{
-
-html += `
-<div style="border:1px solid black;padding:10px;margin:10px;">
-<b>${e.name}</b><br>
-${e.subject}<br><br>
-${e.feedback}
-</div>
-`;
-
-});
-
-if(html===""){
-html="No feedback yet.";
-}
-
-document.getElementById("results").innerHTML = html;
-
-}
-
-</script>
 
 </body>
 </html>
