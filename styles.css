@@ -1,0 +1,97 @@
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#ffffff;
+    color:#000000;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px;
+}
+
+.hero{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.hero h1{
+    font-size:64px;
+    margin-bottom:10px;
+    letter-spacing:3px;
+}
+
+.hero p{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.card{
+    border:2px solid black;
+    border-radius:12px;
+    padding:25px;
+    margin-top:25px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border:2px solid black;
+    border-radius:8px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+button{
+    background:black;
+    color:white;
+    border:none;
+    padding:12px 30px;
+    font-size:16px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#222;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat-box{
+    border:2px solid black;
+    border-radius:10px;
+    padding:20px;
+    text-align:center;
+}
+
+.stat-number{
+    font-size:40px;
+    font-weight:bold;
+}
+
+.feedback-item{
+    border-bottom:1px solid black;
+    padding:15px;
+}
+
+.admin-link{
+    text-align:right;
+    margin-bottom:20px;
+}
+
+.admin-link a{
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+}
