@@ -1,42 +1,211 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>CircleBack V2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CircleBack</title>
+
 <style>
 body{
+margin:0;
 font-family:Arial,sans-serif;
 background:white;
 color:black;
-text-align:center;
-padding:50px;
 }
 
-h1{
+.container{
+max-width:1000px;
+margin:auto;
+padding:40px;
+}
+
+.hero{
+text-align:center;
+padding:60px 20px;
+}
+
+.hero h1{
 font-size:60px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:22px;
+}
+
+.card{
+border:2px solid black;
+border-radius:12px;
+padding:25px;
+margin-top:25px;
+}
+
+select,textarea,input{
+width:100%;
+padding:12px;
+margin-top:10px;
+margin-bottom:15px;
+border:2px solid black;
+border-radius:8px;
+box-sizing:border-box;
 }
 
 button{
-padding:15px 30px;
-font-size:18px;
 background:black;
 color:white;
 border:none;
+padding:12px 24px;
+border-radius:8px;
 cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.stats{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.stat{
+flex:1;
+min-width:200px;
+border:2px solid black;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+.big{
+font-size:40px;
+font-weight:bold;
+}
+
+.feedback-item{
+border-top:1px solid black;
+padding:10px 0;
 }
 </style>
 </head>
 
 <body>
 
+<div class="container">
+
+<div class="hero">
 <h1>CIRCLEBACK</h1>
+<p>Reflect • Improve • Succeed</p>
+</div>
 
-<h2>Reflect • Improve • Succeed</h2>
+<div class="card">
+<h2>Subject Selection</h2>
 
-<p>Version 2 Test Build</p>
+<select id="subject">
+<option>AS Biology</option>
+<option>AS Chemistry</option>
+<option>AS Physics</option>
+<option>AS Business</option>
+<option>Computer Science</option>
+<option>Mathematics</option>
+</select>
 
-<button onclick="alert('CircleBack is working!')">
-Start
-</button>
+<textarea id="response" rows="6" placeholder="Write your reflection or answer here..."></textarea>
+
+<button onclick="submitResponse()">Submit Reflection</button>
+</div>
+
+<div class="card">
+<h2>Statistics Dashboard</h2>
+
+<div class="stats">
+<div class="stat">
+<div class="big" id="users">0</div>
+Users
+</div>
+
+<div class="stat">
+<div class="big" id="entries">0</div>
+Responses
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Recent Responses</h2>
+<div id="history"></div>
+</div>
+
+</div>
+
+<script>
+
+let users = Number(localStorage.getItem("cb_users")) || 0;
+let entries = JSON.parse(localStorage.getItem("cb_entries")) || [];
+
+document.getElementById("users").innerText = users;
+document.getElementById("entries").innerText = entries.length;
+
+render();
+
+function submitResponse(){
+
+const subject =
+document.getElementById("subject").value;
+
+const response =
+document.getElementById("response").value;
+
+if(response.trim()===""){
+alert("Please enter a response.");
+return;
+}
+
+users++;
+
+entries.unshift({
+subject,
+response,
+time:new Date().toLocaleString()
+});
+
+localStorage.setItem("cb_users",users);
+localStorage.setItem("cb_entries",JSON.stringify(entries));
+
+document.getElementById("users").innerText = users;
+document.getElementById("entries").innerText = entries.length;
+
+document.getElementById("response").value="";
+
+render();
+
+alert("Reflection submitted!");
+}
+
+function render(){
+
+let html="";
+
+entries.slice(0,20).forEach(item=>{
+
+html += `
+<div class="feedback-item">
+<b>${item.subject}</b><br>
+${item.response}<br>
+<small>${item.time}</small>
+</div>
+`;
+
+});
+
+document.getElementById("history").innerHTML =
+html || "No responses yet.";
+
+}
+
+</script>
 
 </body>
 </html>
