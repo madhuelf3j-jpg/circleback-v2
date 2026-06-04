@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CircleBack Admin</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:white;
+color:black;
+padding:20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+border:2px solid black;
+border-radius:10px;
+padding:20px;
+text-align:center;
+}
+
+.big{
+font-size:42px;
+font-weight:bold;
+}
+
+.feedback{
+border:2px solid black;
+border-radius:10px;
+padding:20px;
+margin-top:20px;
+}
+
+.item{
+border-bottom:1px solid #ccc;
+padding:15px 0;
+}
+
+.item:last-child{
+border-bottom:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>CircleBack Admin Dashboard</h1>
+
+<div class="grid">
+
+<div class="card">
+<div class="big" id="attempts">0</div>
+Total Attempts
+</div>
+
+<div class="card">
+<div class="big" id="physics">0</div>
+Physics
+</div>
+
+<div class="card">
+<div class="big" id="chem">0</div>
+Chemistry
+</div>
+
+<div class="card">
+<div class="big" id="bio">0</div>
+Biology
+</div>
+
+<div class="card">
+<div class="big" id="business">0</div>
+Business
+</div>
+
+<div class="card">
+<div class="big" id="cs">0</div>
+Computer Science
+</div>
+
+<div class="card">
+<div class="big" id="maths">0</div>
+Mathematics
+</div>
+
+</div>
+
+<div class="feedback">
+<h2>User Feedback</h2>
+<div id="feedbackArea">
+No feedback yet.
+</div>
+</div>
+
+<script>
+
+const entries =
+JSON.parse(localStorage.getItem("cb_entries")) || [];
+
+document.getElementById("attempts").innerText =
+entries.length;
+
+let physics=0;
+let chem=0;
+let bio=0;
+let business=0;
+let cs=0;
+let maths=0;
+
+entries.forEach(e=>{
+
+if(e.subject==="AS Physics") physics++;
+if(e.subject==="AS Chemistry") chem++;
+if(e.subject==="AS Biology") bio++;
+if(e.subject==="AS Business") business++;
+if(e.subject==="Computer Science") cs++;
+if(e.subject==="Mathematics") maths++;
+
+});
+
+document.getElementById("physics").innerText=physics;
+document.getElementById("chem").innerText=chem;
+document.getElementById("bio").innerText=bio;
+document.getElementById("business").innerText=business;
+document.getElementById("cs").innerText=cs;
+document.getElementById("maths").innerText=maths;
+
+let html="";
+
+entries.forEach(e=>{
+
+html += `
+<div class="item">
+<b>${e.subject}</b><br>
+${e.response}<br>
+<small>${e.time}</small>
+</div>
+`;
+
+});
+
+document.getElementById("feedbackArea").innerHTML =
+html || "No feedback yet.";
+
+</script>
+
+</body>
+</html>
